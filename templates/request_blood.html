@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Request Blood{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Request Blood</h2>
+
+  <form method="POST">
+    <label>Blood Type Required</label>
+    <select name="blood_type">
+      <option>O+</option><option>O-</option>
+      <option>A+</option><option>A-</option>
+      <option>B+</option><option>B-</option>
+      <option>AB+</option><option>AB-</option>
+    </select>
+
+    <label>Quantity</label>
+    <input type="number" name="quantity" min="1" placeholder="e.g. 2" required>
+
+    <label>Urgency</label>
+    <select name="urgency">
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+{% endblock %}

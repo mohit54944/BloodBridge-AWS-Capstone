@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}About BloodBridge{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>BloodBridge</h1>
+    <p>Connecting blood donors and recipients through a reliable digital platform.</p>
+</div>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>Emergency Response</h3>
+        <p>Hospitals can submit high-priority requests for rare blood types. Our system integrates with <strong>Amazon SNS</strong> to notify local donors instantly.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Donor Management</h3>
+        <p>Users can track their eligibility based on medical safety windows. Once eligible, you can directly fulfill community needs via your dashboard.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Inventory Intelligence</h3>
+        <p>Real-time stock tracking with automated low-stock alerts. Admins can manage critical supplies across all blood groups with cloud-backed precision.</p>
+    </div>
+</section>
+{% endblock %}

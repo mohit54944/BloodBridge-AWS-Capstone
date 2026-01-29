@@ -1,0 +1,443 @@
+/*:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --text-color: #333;
+    --bg-color: #ffffff;
+    --white: #ffffff;
+}*/
+
+:root {
+    --primary-color: #2563eb;   /* Soft medical blue */
+    --secondary-color: #64748b; /* Neutral grey */
+    --danger-color: #dc2626;    /* Logout / destructive */
+    --text-color: #1f2937;
+    --bg-color: #f8fafc;
+    --white: #ffffff;
+    --success-color: #16a34a;
+}
+
+/* ---------------- GLOBAL ---------------- */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+.navbar {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand a {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+/* ---------------- MAIN ---------------- */
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ---------------- CONTAINER / CARD ---------------- */
+
+.container {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.auth-container {
+    max-width: 400px; 
+}
+
+form input, form select {
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.container h2,
+.container h3 {
+    color: var(--primary-color);
+    margin-top: 1.5rem;
+}
+
+/* ---------------- LISTS ---------------- */
+
+.container ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.container ul li {
+    padding: 0.6rem;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.95rem;
+}
+
+/* ---------------- FORMS ---------------- */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+label {
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+input,
+select {
+    padding: 0.7rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* ---------------- BUTTONS ---------------- */
+
+button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Danger (Logout) */
+button.danger {
+    background-color: var(--danger-color);
+}
+
+button.danger:hover {
+    background-color: #b91c1c;
+}
+
+/* ---------------- HERO / FEATURES (Landing page) ---------------- */
+
+.hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 2.4rem;
+    color: var(--primary-color);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid var(--primary-color);
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    margin-top: auto;
+}
+
+/*--user_dashboard--*/
+.dashboard-wrapper {
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        min-height: 100vh;
+    }
+
+.header-section {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 1rem;
+}
+
+/* Grid for Inventory Cards */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.inventory-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 5px solid #007bff;
+    transition: transform 0.2s;
+}
+
+.inventory-card:hover {
+    transform: translateY(-5px);
+}
+
+.inventory-card.zero { border-top-color: #dc3545; background-color: #fff5f5; }
+.inventory-card.low { border-top-color: #ffc107; background-color: #fffdf5; }
+
+.bt-label { font-size: 1.5rem; font-weight: bold; display: block; }
+.unit-label { color: #6c757d; font-size: 0.9rem; }
+
+/* Table Styling for Requests */
+.table-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    background-color: #f1f3f5;
+    color: #495057;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Badges for Urgency/Status */
+.badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.urgency.high { background: #ffdada; color: #cc0000; }
+.urgency.normal { background: #e2e3e5; color: #383d41; }
+
+.status { color: #007bff; font-style: italic; }
+
+/* Buttons */
+.action-bar { margin-top: 2rem; display: flex; gap: 1rem; }
+button.req-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #28a745;
+    color: white;
+}
+
+button.danger { background-color: #dc3545; }
+button:hover { opacity: 0.9; }
+
+/*--admin_dashboard--*/
+
+.admin-wrapper { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+    .header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Inventory Section */
+    .inventory-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .admin-inv-card {
+        background: var(--white);
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-inv-card label { font-weight: bold; margin-bottom: 0.5rem; color: var(--primary-color); }
+    
+    .admin-inv-card input {
+        width: 80px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    /* Table Styling */
+    .data-card {
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; padding: 1rem; background: #f1f5f9; color: var(--secondary-color); font-size: 0.85rem; }
+    td { padding: 1rem; border-bottom: 1px solid #f1f5f9; }
+
+    /* Badges */
+    .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .status-open { background: #dbeafe; color: #1e40af; }
+    .status-fulfilled { background: #dcfce7; color: #166534; }
+
+    /* Buttons */
+    .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; transition: 0.2s; text-decoration: none; display: inline-block; }
+    .btn-primary { background: var(--primary-color); color: white; }
+    .btn-success { background: var(--success-color); color: white; font-size: 0.8rem; }
+    .btn-danger { background: var(--danger-color); color: white; }
+    .btn:hover { opacity: 0.9; }
+
+/*alert*/
+/* Low Stock Alert Styling */
+.alert-banner {
+    background-color: #fffbeb; /* Soft yellow */
+    border-left: 5px solid #f59e0b; /* Amber border */
+    color: #92400e; /* Dark amber text */
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    animation: slideDown 0.5s ease-out;
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* Flash Alerts for Success/Error feedback */
+.alert {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-left: 5px solid transparent;
+}
+
+.alert-success {
+    background-color: #f0fdf4;
+    color: var(--success-color);
+    border-left-color: var(--success-color);
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    color: var(--danger-color);
+    border-left-color: var(--danger-color);
+}
+
+.status-fulfilled, .status-donated {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.text-muted {
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.admin-inv-card input {
+    border: 1px solid #d1d5db;
+    transition: border-color 0.2s;
+}
+
+.admin-inv-card input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}

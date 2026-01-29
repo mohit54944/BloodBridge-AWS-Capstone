@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}About - BloodBridge{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; text-align: left;">
+    <h1 style="text-align: center; color: var(--primary-color);">About BloodBridge</h1>
+
+    <p>
+        Welcome to <strong>BloodBridge</strong>, a blood donation management platform
+        designed to streamline the process of connecting blood donors, recipients,
+        and administrators through a secure and user-friendly system.
+    </p>
+
+    <h3>Our Mission</h3>
+    <p>
+        To ensure timely access to blood resources by leveraging technology to
+        efficiently manage donor information, blood requests, and administrative
+        workflows.
+    </p>
+
+    <h3>Platform Overview</h3>
+    <p>
+        BloodBridge provides a centralized digital solution where users can register,
+        authenticate securely, and access role-based dashboards. The system is built
+        with scalability and cloud-readiness in mind.
+    </p>
+
+    <h3>Technology Stack</h3>
+    <ul>
+        <li><strong>Frontend:</strong> HTML, CSS, and JavaScript for clean and responsive user interfaces.</li>
+        <li><strong>Backend:</strong> Python (Flask) for handling authentication, routing, and business logic.</li>
+        <li><strong>Data Layer:</strong> In-memory storage during development, with scope for database integration.</li>
+        <li><strong>Cloud:</strong> AWS services to support scalable and reliable deployment.</li>
+    </ul>
+
+    <h3>Cloud & AWS Services</h3>
+    <p>
+        The application is designed to be deployed on Amazon Web Services (AWS),
+        enabling high availability and future scalability. Key services include:
+    </p>
+    <ul>
+        <li><strong>Amazon EC2:</strong> For hosting and running the Flask application.</li>
+        <li><strong>DynamoDB:</strong> Planned NoSQL database for storing user and request data.</li>
+        <li><strong>IAM:</strong> For secure access management between AWS services.</li>
+        <li><strong>Amazon SNS:</strong> For sending notifications related to blood requests and updates.</li>
+    </ul>
+
+    <h3>Academic Purpose</h3>
+    <p>
+        BloodBridge is developed as part of an academic capstone project to demonstrate
+        full-stack application development, authentication mechanisms, and cloud-based
+        deployment using AWS.
+    </p>
+</div>
+{% endblock %}
