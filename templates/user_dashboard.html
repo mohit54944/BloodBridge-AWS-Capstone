@@ -1,82 +1,141 @@
-{% extends "base.html" %}
-{% block title %}User Dashboard{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}User Dashboard{% endblock %} {% block
+content %}
 <div class="dashboard-wrapper">
-    <div class="header-section">
-        <h2>Welcome, {{ username }}</h2>
-    </div>
+  <div class="header-section">
+    <h2>Welcome, {{ username }}</h2>
+  </div>
 
-    {% if not eligible %}
-    <div class="alert-banner" style="background-color: #fffbeb; border-left: 5px solid #f59e0b; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; color: #92400e;">
-        <strong>Donation Status:</strong> You are not eligible to donate yet. 
-        Please wait <strong>{{ days_left }}</strong> more days until your next eligibility window.
-    </div>
-    {% else %}
-    <div class="alert-banner" style="background-color: #f0fdf4; border-left: 5px solid #16a34a; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; color: #166534;">
-        <strong>Donation Status:</strong> You are currently eligible to donate! Your contribution can save up to three lives.
-    </div>
-    {% endif %}
+  {% if not eligible %}
+  <div
+    class="alert-banner"
+    style="
+      background-color: #fffbeb;
+      border-left: 5px solid #f59e0b;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      color: #92400e;
+    "
+  >
+    <strong>Donation Status:</strong> You are not eligible to donate yet. Please
+    wait <strong>{{ days_left }}</strong> more days until your next eligibility
+    window.
+  </div>
+  {% else %}
+  <div
+    class="alert-banner"
+    style="
+      background-color: #f0fdf4;
+      border-left: 5px solid #16a34a;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      color: #166534;
+    "
+  >
+    <strong>Donation Status:</strong> You are currently eligible to donate! Your
+    contribution can save up to three lives.
+  </div>
+  {% endif %}
 
-    <section>
-        <h3>Real-Time Blood Availability</h3>
-        <div class="inventory-grid">
-            {% for bt, units in inventory.items() %}
-            <div class="inventory-card {% if units|int == 0 %}zero{% elif units|int <= 3 %}low{% endif %}">
-                <span class="bt-label">{{ bt }}</span>
-                <span class="unit-label">{{ units }} units available</span>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-
-    <section>
-        <h3>Community Blood Requests</h3>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Blood Type</th>
-                        <th>Quantity</th>
-                        <th>Urgency</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for r in requests %}
-                    <tr>
-                        <td><strong>{{ r.blood_type }}</strong></td>
-                        <td>{{ r.quantity }} Units</td>
-                        <td><span class="badge urgency {{ r.urgency|lower }}">{{ r.urgency }}</span></td>
-                        <td><span class="status">{{ r.status }}</span></td>
-                        <td>
-                            {% if r.status == 'Open' %}
-                                {% if eligible %}
-                                <a href="{{ url_for('donate_to_request', req_id=r.id) }}">
-                                    <button class="req-button" style="background-color: var(--success-color);">Donate</button>
-                                </a>
-                                {% else %}
-                                <small style="color: var(--secondary-color);">Ineligible to Donate</small>
-                                {% endif %}
-                            {% else %}
-                                <span style="color: var(--success-color); font-weight: bold;">{{ r.status }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr><td colspan="5" style="text-align: center;">No active requests at this time.</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <div class="action-bar">
-        <a href="{{ url_for('request_blood') }}"><button class="btn btn-primary">Request Blood</button></a>
-        <a href="{{ url_for('logout') }}"><button class="danger">Logout</button></a>
+  <section>
+    <h3>Real-Time Blood Availability</h3>
+    <div class="inventory-grid">
+      {% for bt, units in inventory.items() %}
+      <div
+        class="inventory-card {% if units|int == 0 %}zero{% elif units|int <= 3 %}low{% endif %}"
+      >
+        <span class="bt-label">{{ bt }}</span>
+        <span class="unit-label">{{ units }} units available</span>
+      </div>
+      {% endfor %}
     </div>
+  </section>
+
+  <section>
+    <h3>Community Blood Requests</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Blood Type</th>
+            <th>Quantity</th>
+            <th>Urgency</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in requests %}
+          <tr>
+            <td><strong>{{ r.blood_type }}</strong></td>
+            <td>{{ r.quantity }} Units</td>
+            <td>
+              <span class="badge urgency {{ r.urgency|lower }}"
+                >{{ r.urgency }}</span
+              >
+            </td>
+            <td>
+              <span class="status"
+                >{% if r.status == 'Donated/Stocked' %}donated/stocked{% else
+                %}{{ r.status }}{% endif %}</span
+              >
+            </td>
+            <td>
+              {% if r.status == 'Open' %} {% if r.user != username %} {% if
+              eligible %}
+              <a href="{{ url_for('donate_to_request', req_id=r.id) }}">
+                <button
+                  class="req-button"
+                  style="background-color: var(--success-color)"
+                >
+                  Donate
+                </button>
+              </a>
+              {% else %}
+              <small style="color: var(--secondary-color)"
+                >Ineligible to Donate</small
+              >
+              {% endif %} {% else %}
+              <form
+                method="POST"
+                action="{{ url_for('cancel_request', req_id=r.id) }}"
+                style="display: inline"
+              >
+                <button class="danger">Delete/Cancel</button>
+              </form>
+              {% endif %} {% else %} {% if r.status == 'Donated/Stocked' %}
+              <span style="color: var(--success-color); font-weight: bold"
+                >donated/stocked</span
+              >
+              {% elif r.status == 'Dispatched' %}
+              <span style="color: var(--secondary-color); font-weight: bold"
+                >dispatched</span
+              >
+              {% else %}
+              <span style="color: var(--secondary-color); font-weight: bold"
+                >{{ r.status }}</span
+              >
+              {% endif %} {% endif %}
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="5" style="text-align: center">
+              No active requests at this time.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="action-bar">
+    <a href="{{ url_for('request_blood') }}"
+      ><button class="btn btn-primary">Request Blood</button></a
+    >
+    <a href="{{ url_for('logout') }}"><button class="danger">Logout</button></a>
+  </div>
 </div>
 {% endblock %}
-
-

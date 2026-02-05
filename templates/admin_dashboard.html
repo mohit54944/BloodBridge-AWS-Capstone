@@ -1,73 +1,110 @@
-{% extends "base.html" %}
-{% block title %}Admin Dashboard{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
 <div class="admin-wrapper">
-    {% if alerts %}
-    <div class="alert-banner" style="background-color: #fee2e2; border-left: 5px solid var(--danger-color); padding: 1rem; margin-bottom: 2rem; border-radius: 8px; color: #991b1b;">
-        <strong>Critical Stock Alert:</strong> The following types are below safe levels: 
-        <strong>{{ alerts|join(', ') }}</strong>. Immediate replenishment required.
-    </div>
-    {% endif %}
+  {% if alerts %}
+  <div
+    class="alert-banner"
+    style="
+      background-color: #fee2e2;
+      border-left: 5px solid var(--danger-color);
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      color: #991b1b;
+    "
+  >
+    <strong>Critical Stock Alert:</strong> The following types are below safe
+    levels: <strong>{{ alerts|join(', ') }}</strong>. Immediate replenishment
+    required.
+  </div>
+  {% endif %}
 
+  <div class="header-flex">
+    <h1>Admin Control Panel</h1>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+  </div>
+
+  <form method="POST">
     <div class="header-flex">
-        <h1>Admin Control Panel</h1>
-        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+      <h3>Inventory Management</h3>
+      <button type="submit" class="btn btn-primary">Save Manual Update</button>
     </div>
-
-    <form method="POST">
-        <div class="header-flex">
-            <h3>Inventory Management</h3>
-            <button type="submit" class="btn btn-primary">Save Manual Update</button>
-        </div>
-        <div class="inventory-card-grid">
-            {% for bt, units in inventory.items() %}
-            <div class="admin-inv-card">
-                <label>{{ bt }}</label>
-                <input type="number" name="{{ bt }}" value="{{ units }}" min="0">
-            </div>
-            {% endfor %}
-        </div>
-    </form>
-
-    <h3>Request Fulfillment & Dispatch</h3>
-    <div class="data-card">
-        <table>
-            <thead>
-                <tr>
-                    <th>Requester</th>
-                    <th>Type</th>
-                    <th>Qty</th>
-                    <th>Urgency</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for r in requests %}
-                <tr>
-                    <td><strong>{{ r.user }}</strong></td>
-                    <td>{{ r.blood_type }}</td>
-                    <td>{{ r.quantity }} Units</td>
-                    <td><span class="badge urgency {{ r.urgency|lower }}">{{ r.urgency }}</span></td>
-                    <td>
-                        <span class="badge {% if r.status == 'Open' %}status-open{% else %}status-fulfilled{% endif %}">
-                            {{ r.status }}
-                        </span>
-                    </td>
-                    <td>
-                        {% if r.status == 'Open' %}
-                        <a href="{{ url_for('fulfill_request', request_id=r.id) }}" class="btn btn-success">Dispatch Blood</a>
-                        {% else %}
-                        <span style="color: var(--secondary-color); font-size: 0.85rem;">Order Completed</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% else %}
-                <tr><td colspan="6" style="text-align: center;">No pending requests found.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="inventory-card-grid">
+      {% for bt, units in inventory.items() %}
+      <div class="admin-inv-card">
+        <label>{{ bt }}</label>
+        <input type="number" name="{{ bt }}" value="{{ units }}" min="0" />
+      </div>
+      {% endfor %}
     </div>
+  </form>
+
+  <h3>Request Fulfillment & Dispatch</h3>
+  <div class="data-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Requester</th>
+          <th>Type</th>
+          <th>Qty</th>
+          <th>Urgency</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in requests %}
+        <tr>
+          <td><strong>{{ r.user }}</strong></td>
+          <td>{{ r.blood_type }}</td>
+          <td>{{ r.quantity }} Units</td>
+          <td>
+            <span class="badge urgency {{ r.urgency|lower }}"
+              >{{ r.urgency }}</span
+            >
+          </td>
+          <td>
+            <span
+              class="badge {% if r.status == 'Open' %}status-open{% elif r.status == 'Donated/Stocked' %}status-donated{% else %}status-fulfilled{% endif %}"
+            >
+              {% if r.status == 'Donated/Stocked' %}donated/stocked{% else %}{{
+              r.status }}{% endif %}
+            </span>
+          </td>
+          <td>
+            {% if r.status == 'Open' %} {% if (inventory.get(r.blood_type,
+            0)|int) >= (r.quantity|int) %}
+            <a
+              href="{{ url_for('fulfill_request', req_id=r.id) }}"
+              class="btn btn-success"
+              >Dispatch Blood</a
+            >
+            {% else %}
+            <span style="color: var(--secondary-color); font-size: 0.85rem"
+              >Awaiting donation</span
+            >
+            {% endif %} {% elif r.status == 'Donated/Stocked' %}
+            <a
+              href="{{ url_for('fulfill_request', req_id=r.id) }}"
+              class="btn btn-success"
+              >Dispatch Blood</a
+            >
+            {% else %}
+            <span style="color: var(--secondary-color); font-size: 0.85rem"
+              >Order Completed</span
+            >
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align: center">
+            No pending requests found.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

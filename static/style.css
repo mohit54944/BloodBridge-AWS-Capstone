@@ -362,6 +362,7 @@ button:hover { opacity: 0.9; }
     /* Badges */
     .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
     .status-open { background: #dbeafe; color: #1e40af; }
+    .status-donated { background: #fef3c7; color: #b45309; }
     .status-fulfilled { background: #dcfce7; color: #166534; }
 
     /* Buttons */
