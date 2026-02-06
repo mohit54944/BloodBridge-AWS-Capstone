@@ -9,7 +9,7 @@ app.secret_key = 'bloodbridge_secure_key'  # Use a random string for production
 
 # --- AWS Configuration ---
 REGION = 'us-east-1'
-SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:604665149129:aws_capstone_topic'
+SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:841162686181:bloodbridge_topic'
 
 # Resources using IAM Role (No hardcoded keys for EC2 security)
 dynamodb = boto3.resource('dynamodb', region_name=REGION)
